@@ -47,7 +47,6 @@
       z-index: 1;
       mix-blend-mode: multiply;
     }
-    /* Arriba izquierda: La Creación de Adán */
     .art-adam {
       top: 0;
       left: -10px;
@@ -56,7 +55,6 @@
       transform: rotate(-2deg);
       opacity: 0.58;
     }
-    /* Arriba derecha: El Beso (solo la pareja escultórica, sin plataforma) */
     .art-beso {
       top: 4px;
       right: -12px;
@@ -70,7 +68,6 @@
       -webkit-mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
       mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
     }
-    /* Abajo centro: Las Cariátides integradas en el tono cálido del papel */
     .art-cariatides {
       bottom: 8px;
       left: 50%;
@@ -211,33 +208,15 @@
     }
 
     @keyframes pageTurnNext {
-      0% {
-        transform: rotateY(0deg) scale(1);
-        box-shadow: 0 24px 48px rgba(40, 30, 15, 0.28);
-      }
-      45% {
-        transform: rotateY(-14deg) scale(0.985);
-        box-shadow: 18px 26px 46px rgba(40, 30, 15, 0.36);
-      }
-      100% {
-        transform: rotateY(0deg) scale(1);
-        box-shadow: 0 24px 48px rgba(40, 30, 15, 0.28);
-      }
+      0% { transform: rotateY(0deg) scale(1); }
+      45% { transform: rotateY(-12deg) scale(0.985); }
+      100% { transform: rotateY(0deg) scale(1); }
     }
 
     @keyframes pageTurnPrev {
-      0% {
-        transform: rotateY(0deg) scale(1);
-        box-shadow: 0 24px 48px rgba(40, 30, 15, 0.28);
-      }
-      45% {
-        transform: rotateY(14deg) scale(0.985);
-        box-shadow: -18px 26px 46px rgba(40, 30, 15, 0.36);
-      }
-      100% {
-        transform: rotateY(0deg) scale(1);
-        box-shadow: 0 24px 48px rgba(40, 30, 15, 0.28);
-      }
+      0% { transform: rotateY(0deg) scale(1); }
+      45% { transform: rotateY(12deg) scale(0.985); }
+      100% { transform: rotateY(0deg) scale(1); }
     }
 
     /* DOBLE PÁGINA: 2 OBRAS IZQUIERDA + 2 OBRAS DERECHA = 4 EN TOTAL */
@@ -492,8 +471,8 @@
       position: fixed;
       bottom: 24px;
       right: 24px;
-      width: 80px;
-      height: 80px;
+      width: 82px;
+      height: 82px;
       border-radius: 50%;
       background-color: var(--paper-cream);
       background-image: radial-gradient(circle at 35% 35%, #fdfaf3 0%, #e7decb 100%);
@@ -505,7 +484,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 50;
+      z-index: 90;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .lily-fab:hover {
@@ -513,8 +492,9 @@
       box-shadow: 0 14px 28px rgba(35, 25, 10, 0.32);
     }
     .lily-svg {
-      width: 58px;
-      height: 58px;
+      width: 60px;
+      height: 60px;
+      display: block;
       animation: lilyBloom 4s ease-in-out infinite;
     }
     @keyframes lilyBloom {
@@ -524,7 +504,7 @@
     .lily-tooltip {
       position: fixed;
       bottom: 43px;
-      right: 114px;
+      right: 116px;
       background: var(--paper-cream);
       color: var(--ink-primary);
       padding: 6px 14px;
@@ -534,7 +514,7 @@
       box-shadow: 0 4px 12px rgba(35, 25, 10, 0.18);
       border: 1px solid var(--gold-mid);
       pointer-events: none;
-      z-index: 50;
+      z-index: 90;
     }
 
     /* MODALES */
@@ -546,7 +526,7 @@
       align-items: center;
       justify-content: center;
       padding: 16px;
-      z-index: 100;
+      z-index: 120;
     }
     .modal-backdrop.open { display: flex; }
     .modal-card {
@@ -665,8 +645,349 @@
 
   <!-- Botón redondo en color papel con LIRIO DIBUJADO A TINTA -->
   <div class="lily-tooltip">Añadir trazo o idea</div>
-  <button class="lily-fab" onclick="openUploadModal()" title="Añadir nuevo dibujo o referencia">
+  <button type="button" class="lily-fab" onclick="openUploadModal()" title="Añadir nuevo dibujo o referencia">
     <svg class="lily-svg" viewBox="0 0 120 120" fill="none" stroke="#1f1b18" stroke-linecap="round" stroke-linejoin="round">
-      <!-- Pétalos abiertos del lirio -->
       <path d="M58 62 C44 48, 28 42, 30 28 C34 20, 44 22, 50 28 C54 34, 56 46, 58 62 Z" fill="#faf6ed" stroke-width="1.9" />
-      <path d="M60 62 C60 44, 62 24, 74 16 C82 14, 88 20,
+      <path d="M60 62 C60 44, 62 24, 74 16 C82 14, 88 20, 86 28 C82 40, 70 50, 60 62 Z" fill="#faf6ed" stroke-width="1.9" />
+      <path d="M57 63 C42 54, 24 52, 16 62 C14 70, 20 76, 30 74 C42 72, 50 67, 57 63 Z" fill="#faf6ed" stroke-width="1.9" />
+      <path d="M61 63 C76 50, 94 42, 104 52 C108 58, 104 66, 94 66 C82 66, 70 64, 61 63 Z" fill="#faf6ed" stroke-width="1.9" />
+      <path d="M58 64 C46 72, 34 86, 38 100 C42 106, 50 104, 56 94 C60 84, 60 72, 58 64 Z" fill="#faf6ed" stroke-width="1.9" />
+      <path d="M60 64 C64 76, 72 90, 82 94 C88 94, 90 86, 84 78 C78 70, 68 66, 60 64 Z" fill="#faf6ed" stroke-width="1.9" />
+      <path d="M55 56 L38 32 M52 58 L34 42 M62 56 L78 24 M64 58 L82 34 M52 64 L24 64 M66 62 L96 56 M56 70 L44 96 M63 70 L78 88" stroke-width="0.9" />
+      <path d="M32 34 L38 36 M32 38 L38 40 M76 18 L82 22 M74 22 L80 26 M18 64 L24 66 M18 68 L24 70 M40 94 L46 92 M42 98 L48 96 M96 54 L102 58 M94 58 L100 62" stroke-width="0.85" />
+      <circle cx="48" cy="48" r="0.9" fill="#1f1b18" stroke="none" />
+      <circle cx="52" cy="44" r="0.9" fill="#1f1b18" stroke="none" />
+      <circle cx="66" cy="46" r="0.9" fill="#1f1b18" stroke="none" />
+      <circle cx="70" cy="50" r="0.9" fill="#1f1b18" stroke="none" />
+      <circle cx="48" cy="60" r="0.9" fill="#1f1b18" stroke="none" />
+      <circle cx="68" cy="60" r="0.9" fill="#1f1b18" stroke="none" />
+      <path d="M58 61 C54 48, 50 38, 48 30" stroke-width="1.2" />
+      <path d="M59 61 C58 46, 58 34, 57 26" stroke-width="1.2" />
+      <path d="M60 61 C63 46, 66 36, 68 28" stroke-width="1.2" />
+      <path d="M60 61 C66 50, 72 42, 76 36" stroke-width="1.2" />
+      <ellipse cx="48" cy="29" rx="1.8" ry="3.4" transform="rotate(-18 48 29)" fill="#1f1b18" />
+      <ellipse cx="57" cy="25" rx="1.8" ry="3.4" transform="rotate(-5 57 25)" fill="#1f1b18" />
+      <ellipse cx="68" cy="27" rx="1.8" ry="3.4" transform="rotate(14 68 27)" fill="#1f1b18" />
+      <ellipse cx="76" cy="35" rx="1.8" ry="3.4" transform="rotate(28 76 35)" fill="#1f1b18" />
+    </svg>
+  </button>
+
+  <!-- MODAL 1: SUBIR OBRA -->
+  <div class="modal-backdrop" id="upload-modal">
+    <div class="modal-card">
+      <button type="button" class="modal-close" onclick="closeModal('upload-modal')">&times;</button>
+      <h2 style="font-family: 'Cormorant Garamond', serif; margin-bottom: 14px;">Guardar en Sai's sketchbook</h2>
+      <form id="upload-form" onsubmit="handleUpload(event)">
+        <div class="form-group">
+          <label>¿Dónde quieres guardarlo?</label>
+          <select id="obra-tipo">
+            <option value="coleccion">Mi Pequeña Colección (Obra terminada con marco dorado)</option>
+            <option value="wishlist">Wishlist (Referencia / Idea por dibujar)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Imagen del dibujo o referencia</label>
+          <input type="file" id="obra-file" accept="image/*" required />
+        </div>
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" id="obra-titulo" placeholder="Ej: Estudio de manos / Cariátides" required />
+        </div>
+        <div class="form-group">
+          <label>Técnica</label>
+          <input type="text" id="obra-tecnica" value="Lápiz" />
+        </div>
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="text" id="obra-fecha" placeholder="Ej: Noviembre 2026" />
+        </div>
+        <div class="form-group">
+          <label>¿Qué te inspiró o qué detalles quieres recordar?</label>
+          <textarea id="obra-nota" rows="3" placeholder="Escribe aquí tu nota artística..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Tu PIN secreto (para confirmar que eres tú)</label>
+          <input type="password" id="obra-pin" placeholder="Introduce tu PIN" required />
+        </div>
+        <button type="submit" class="btn-muse" style="width: 100%;" id="submit-btn">Guardar en la base de datos</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: VER DETALLE -->
+  <div class="modal-backdrop" id="detail-modal">
+    <div class="modal-card">
+      <button type="button" class="modal-close" onclick="closeModal('detail-modal')">&times;</button>
+      <img id="det-img" class="detail-img" src="" alt="Obra" />
+      <h2 id="det-titulo" style="font-family: 'Cormorant Garamond', serif; font-size: 1.7rem;"></h2>
+      <p style="font-size: 0.9rem; color: var(--accent-terracotta); margin: 4px 0 12px;">
+        <strong id="det-tecnica"></strong> · <span id="det-fecha"></span>
+      </p>
+      <p id="det-nota" style="font-style: italic; line-height: 1.6; background: var(--paper-dark); padding: 12px; border-radius: 8px;"></p>
+      <div style="margin-top: 16px; text-align: right;">
+        <button type="button" class="btn-delete" id="det-delete-btn">Eliminar obra</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://hllipxzifcwsvkxrdaou.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_FzzSMk-LmOSUyfYHKwigkA_CcES_w5k';
+    const MI_PIN_SECRETO = '1201';
+    const OBRAS_POR_PLIEGO = 4;
+
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let coleccionActual = [];
+    let paginaActual = 1;
+    let tabActiva = 'coleccion';
+
+    function switchTab(tab) {
+      tabActiva = tab;
+      document.getElementById('tab-coleccion').classList.toggle('active', tab === 'coleccion');
+      document.getElementById('tab-wishlist').classList.toggle('active', tab === 'wishlist');
+      document.getElementById('view-coleccion').classList.toggle('hidden', tab !== 'coleccion');
+      document.getElementById('view-wishlist').classList.toggle('hidden', tab !== 'wishlist');
+      actualizarControlesPagina();
+    }
+
+    function openUploadModal() {
+      document.getElementById('upload-modal').classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function crearTarjetaObra(obra) {
+      const card = document.createElement('div');
+      card.className = 'gold-frame-card';
+      card.innerHTML = `
+        <div class="gold-frame-inner">
+          <img src="${obra.imagen_url}" alt="${obra.titulo}" loading="lazy" />
+        </div>
+        <div class="museum-plaque">
+          <h3>${obra.titulo}</h3>
+          <p>${obra.tecnica || 'Lápiz'} · ${obra.fecha || ''}</p>
+        </div>
+      `;
+      card.onclick = () => verDetalle(obra);
+      return card;
+    }
+
+    function renderizarPliegoColeccion() {
+      const emptyEl = document.getElementById('coleccion-empty');
+      const twoPagesEl = document.getElementById('coleccion-two-pages');
+      const leftGrid = document.getElementById('page-left-grid');
+      const rightGrid = document.getElementById('page-right-grid');
+
+      leftGrid.innerHTML = '';
+      rightGrid.innerHTML = '';
+
+      if (coleccionActual.length === 0) {
+        emptyEl.classList.remove('hidden');
+        emptyEl.innerHTML = 'Tu libreta está en blanco esperando tu primer dibujo. Pulsa el lirio para añadir uno.';
+        twoPagesEl.classList.add('hidden');
+        actualizarControlesPagina();
+        return;
+      }
+
+      const totalPaginas = Math.max(1, Math.ceil(coleccionActual.length / OBRAS_POR_PLIEGO));
+      if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+
+      const inicio = (paginaActual - 1) * OBRAS_POR_PLIEGO;
+      const obrasPliego = coleccionActual.slice(inicio, inicio + OBRAS_POR_PLIEGO);
+
+      emptyEl.classList.add('hidden');
+      twoPagesEl.classList.remove('hidden');
+
+      obrasPliego.slice(0, 2).forEach(obra => leftGrid.appendChild(crearTarjetaObra(obra)));
+      obrasPliego.slice(2, 4).forEach(obra => rightGrid.appendChild(crearTarjetaObra(obra)));
+
+      actualizarControlesPagina();
+    }
+
+    function actualizarControlesPagina() {
+      const controlsEl = document.getElementById('page-controls');
+      const totalPaginas = Math.max(1, Math.ceil(coleccionActual.length / OBRAS_POR_PLIEGO));
+
+      if (tabActiva !== 'coleccion' || coleccionActual.length <= OBRAS_POR_PLIEGO) {
+        controlsEl.classList.add('hidden');
+        return;
+      }
+
+      controlsEl.classList.remove('hidden');
+      document.getElementById('page-indicator').textContent = `Página ${paginaActual} de ${totalPaginas}`;
+      document.getElementById('btn-prev-page').disabled = paginaActual <= 1;
+      document.getElementById('btn-next-page').disabled = paginaActual >= totalPaginas;
+    }
+
+    function cambiarPagina(delta) {
+      const totalPaginas = Math.max(1, Math.ceil(coleccionActual.length / OBRAS_POR_PLIEGO));
+      const nuevaPagina = paginaActual + delta;
+      if (nuevaPagina < 1 || nuevaPagina > totalPaginas) return;
+
+      const spread = document.getElementById('sketchbook-spread');
+      const animClass = delta > 0 ? 'turning-next' : 'turning-prev';
+
+      spread.classList.remove('turning-next', 'turning-prev');
+      void spread.offsetWidth;
+      spread.classList.add(animClass);
+
+      setTimeout(() => {
+        paginaActual = nuevaPagina;
+        renderizarPliegoColeccion();
+      }, 210);
+
+      setTimeout(() => {
+        spread.classList.remove('turning-next', 'turning-prev');
+      }, 560);
+    }
+
+    async function cargarObras() {
+      try {
+        const { data, error } = await db.from('obras').select('*').order('created_at', { ascending: false });
+        if (error) throw error;
+
+        const rows = Array.isArray(data) ? data : [];
+        const wishGrid = document.getElementById('wishlist-grid');
+        const wishEmpty = document.getElementById('wishlist-empty-msg');
+        wishGrid.innerHTML = '';
+
+        coleccionActual = rows.filter(item => item.tipo === 'coleccion');
+        const wishlist = rows.filter(item => item.tipo === 'wishlist');
+
+        renderizarPliegoColeccion();
+
+        if (wishlist.length === 0) {
+          wishEmpty.classList.remove('hidden');
+          wishGrid.classList.add('hidden');
+        } else {
+          wishEmpty.classList.add('hidden');
+          wishGrid.classList.remove('hidden');
+          wishlist.forEach(item => {
+            const pin = document.createElement('div');
+            pin.className = 'pin-card';
+            pin.innerHTML = `
+              <img src="${item.imagen_url}" alt="${item.titulo}" loading="lazy" />
+              <h4>${item.titulo}</h4>
+              <p>${item.nota || 'Idea para el cuaderno'}</p>
+              <div class="pin-actions">
+                <button type="button" class="btn-hecho" onclick="marcarHecho('${item.id}')">✓ ¡Hecho!</button>
+                <button type="button" class="btn-delete" onclick="borrarObra('${item.id}')">Borrar</button>
+              </div>
+            `;
+            wishGrid.appendChild(pin);
+          });
+        }
+      } catch (err) {
+        console.error(err);
+        const emptyEl = document.getElementById('coleccion-empty');
+        emptyEl.classList.remove('hidden');
+        emptyEl.innerHTML = `<span style="color: #9e473b;">Error de conexión: ${err.message}</span>`;
+      }
+    }
+
+    async function handleUpload(e) {
+      e.preventDefault();
+      const pin = document.getElementById('obra-pin').value;
+      if (pin !== MI_PIN_SECRETO) {
+        alert('PIN incorrecto. Solo la dueña de la libreta puede subir obras.');
+        return;
+      }
+
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Guardando trazo...';
+
+      try {
+        const file = document.getElementById('obra-file').files[0];
+        const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+
+        const { error: uploadError } = await db.storage.from('dibujos').upload(fileName, file);
+        if (uploadError) throw uploadError;
+
+        const { data: urlData } = db.storage.from('dibujos').getPublicUrl(fileName);
+
+        const nuevaObra = {
+          tipo: document.getElementById('obra-tipo').value,
+          titulo: document.getElementById('obra-titulo').value,
+          tecnica: document.getElementById('obra-tecnica').value || 'Lápiz',
+          fecha: document.getElementById('obra-fecha').value,
+          nota: document.getElementById('obra-nota').value,
+          imagen_url: urlData.publicUrl
+        };
+
+        const { error: insertError } = await db.from('obras').insert([nuevaObra]);
+        if (insertError) throw insertError;
+
+        document.getElementById('upload-form').reset();
+        document.getElementById('obra-tecnica').value = 'Lápiz';
+        paginaActual = 1;
+        closeModal('upload-modal');
+        cargarObras();
+      } catch (err) {
+        alert('Error al subir: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Guardar en la base de datos';
+      }
+    }
+
+    function verDetalle(obra) {
+      document.getElementById('det-img').src = obra.imagen_url;
+      document.getElementById('det-titulo').textContent = obra.titulo;
+      document.getElementById('det-tecnica').textContent = obra.tecnica || 'Lápiz';
+      document.getElementById('det-fecha').textContent = obra.fecha || 'Sin fecha';
+      document.getElementById('det-nota').textContent = obra.nota || 'Sin notas adicionales.';
+      document.getElementById('det-delete-btn').onclick = () => borrarObra(obra.id, true);
+      document.getElementById('detail-modal').classList.add('open');
+    }
+
+    async function marcarHecho(id) {
+      const pin = prompt('Introduce tu PIN para mover este dibujo a Mi Pequeña Colección:');
+      if (pin !== MI_PIN_SECRETO) {
+        if (pin !== null) alert('PIN incorrecto.');
+        return;
+      }
+      await db.from('obras').update({ tipo: 'coleccion' }).eq('id', id);
+      paginaActual = 1;
+      cargarObras();
+    }
+
+    async function borrarObra(id, fromModal = false) {
+      const pin = prompt('Introduce tu PIN para eliminar este elemento:');
+      if (pin !== MI_PIN_SECRETO) {
+        if (pin !== null) alert('PIN incorrecto.');
+        return;
+      }
+      await db.from('obras').delete().eq('id', id);
+      if (fromModal) closeModal('detail-modal');
+      cargarObras();
+    }
+
+    function generarIdea() {
+      const texto = document.getElementById('idea-input').value.trim().toLowerCase();
+      const out = document.getElementById('idea-output');
+      if (!texto) return;
+
+      let sugerencia = `<strong>Propuesta para tu libreta sobre "${document.getElementById('idea-input').value}":</strong><br>`;
+
+      if (texto.includes('mano') || texto.includes('adan') || texto.includes('adán') || texto.includes('tocar')) {
+        sugerencia += `• <strong>Composición:</strong> Usa una diagonal ascendente inspirada en <em>La Creación de Adán</em>, dejando un espacio vacío de tensión justo antes de que las yemas se rocen.<br>• <strong>Técnica a lápiz:</strong> Trabaja los nudillos y tendones con grafito 2B/4B y deja el borde superior iluminado con goma moldeable para dar volumen escultórico.`;
+      } else if (texto.includes('beso') || texto.includes('abrazo') || texto.includes('pareja') || texto.includes('cariatide') || texto.includes('columna')) {
+        sugerencia += `• <strong>Composición:</strong> Inspírate en la verticalidad serena de las <em>Cariátides</em> o el abrazo de <em>El Beso</em> de Víctor Delfín: presta atención a los pliegues de la túnica y el equilibrio del peso.<br>• <strong>Técnica a lápiz:</strong> Usa líneas suaves y continuas para las caídas de tela y sombreado gradual para el volumen de la piedra.`;
+      } else if (texto.includes('flor') || texto.includes('lirio') || texto.includes('botan') || texto.includes('naturaleza')) {
+        sugerencia += `• <strong>Composición:</strong> Combina un estudio botánico detallado en primer plano con líneas de construcción geométrica visibles al fondo (estilo cuaderno de estudio renacentista).<br>• <strong>Técnica a lápiz:</strong> Usa un portaminas fino (0.5) para las nervaduras de los pétalos y difumina suavemente la base del tallo.`;
+      } else {
+        sugerencia += `• <strong>Composición clásica:</strong> Divide la página lisa de tu libreta en un boceto principal en el centro y dos pequeños estudios de detalle (un ojo, un pliegue de tela o una mano) en las esquinas.<br>• <strong>Luz y atmósfera:</strong> Imagina una luz lateral tipo escultura de mármol (claroscuro marcado) usando lápiz HB para el encaje inicial y 4B para las sombras proyectadas.`;
+      }
+
+      out.innerHTML = sugerencia;
+      out.style.display = 'block';
+    }
+
+    cargarObras();
+  </script>
+</body>
+</html>
