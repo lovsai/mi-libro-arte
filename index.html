@@ -46,7 +46,6 @@
       pointer-events: none;
       z-index: 1;
       mix-blend-mode: multiply;
-      opacity: 0.58;
     }
     /* Arriba izquierda: La Creación de Adán */
     .art-adam {
@@ -55,6 +54,7 @@
       width: 620px;
       object-fit: contain;
       transform: rotate(-2deg);
+      opacity: 0.58;
     }
     /* Arriba derecha: El Beso (solo la pareja escultórica, sin plataforma) */
     .art-beso {
@@ -70,30 +70,30 @@
       -webkit-mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
       mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
     }
-    /* Abajo centro: Eros y Psique (subido un poco, más alto y sin recuadro gris) */
-    .art-eros {
-      bottom: 18px;
+    /* Abajo centro: La Victoria integrada en el tono cálido del papel */
+    .art-victoria {
+      bottom: 12px;
       left: 50%;
       transform: translateX(-50%);
       width: 450px;
-      height: 315px;
-      object-fit: cover;
-      object-position: 50% 50%;
-      opacity: 0.62;
-      filter: grayscale(100%) contrast(165%) brightness(118%);
-      -webkit-mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, black 60%, transparent 100%);
-      mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, black 60%, transparent 100%);
+      height: 300px;
+      object-fit: contain;
+      object-position: center bottom;
+      opacity: 0.56;
+      filter: sepia(22%) grayscale(75%) contrast(130%) brightness(106%);
+      -webkit-mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, black 62%, transparent 100%);
+      mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, black 62%, transparent 100%);
     }
 
     @media (max-width: 1150px) {
       .art-adam { width: 440px; }
       .art-beso { width: 370px; height: 175px; }
-      .art-eros { width: 370px; height: 260px; }
+      .art-victoria { width: 370px; height: 245px; }
     }
     @media (max-width: 720px) {
       .art-adam { width: 280px; opacity: 0.45; }
       .art-beso { width: 250px; height: 130px; opacity: 0.42; }
-      .art-eros { width: 280px; height: 205px; opacity: 0.48; }
+      .art-victoria { width: 280px; height: 195px; opacity: 0.48; }
     }
 
     /* TÍTULO PRINCIPAL SIN RECUADRO */
@@ -141,7 +141,7 @@
       border-top: 3px solid var(--gold-mid);
     }
 
-    /* LIBRETA ABIERTA COMPACTA EN EL CENTRO CON HOJAS EN ABANICO */
+    /* LIBRETA ABIERTA COMPACTA Y LISA */
     .book-stage {
       width: 100%;
       max-width: 820px;
@@ -254,7 +254,7 @@
       font-style: italic;
     }
 
-    /* SECCIÓN 2: WISHLIST + ASISTENTE DE INSPIRACIÓN */
+    /* SECCIÓN 2: WISHLIST TIPO PINTEREST + ASISTENTE DE INSPIRACIÓN */
     .inspiration-box {
       background: #fffcf5;
       border: 1.5px solid #c9b693;
@@ -492,7 +492,7 @@
   <!-- TUS 3 OBRAS REALES EN EL FONDO -->
   <img class="bg-artwork art-adam" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/creacion.jpg" alt="La Creación de Adán" onerror="this.style.display='none'" />
   <img class="bg-artwork art-beso" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/beso.jpg" alt="El Beso de Víctor Delfín" onerror="this.style.display='none'" />
-  <img class="bg-artwork art-eros" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/eros.jpg" alt="Eros y Psique" onerror="this.style.display='none'" />
+  <img class="bg-artwork art-victoria" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/victoria.jpg" alt="Victoria" onerror="this.style.display='none'" />
 
   <!-- TÍTULO SIN RECUADRO -->
   <header class="header-desk">
@@ -593,7 +593,7 @@
         </div>
         <div class="form-group">
           <label>Título</label>
-          <input type="text" id="obra-titulo" placeholder="Ej: Estudio de manos / Eros y Psique" required />
+          <input type="text" id="obra-titulo" placeholder="Ej: Estudio de manos / Victoria" required />
         </div>
         <div class="form-group">
           <label>Técnica</label>
@@ -795,8 +795,8 @@
 
       if (texto.includes('mano') || texto.includes('adan') || texto.includes('adán') || texto.includes('tocar')) {
         sugerencia += `• <strong>Composición:</strong> Usa una diagonal ascendente inspirada en <em>La Creación de Adán</em>, dejando un espacio vacío de tensión justo antes de que las yemas se rocen.<br>• <strong>Técnica a lápiz:</strong> Trabaja los nudillos y tendones con grafito 2B/4B y deja el borde superior iluminado con goma moldeable para dar volumen escultórico.`;
-      } else if (texto.includes('beso') || texto.includes('abrazo') || texto.includes('pareja') || texto.includes('eros') || texto.includes('psique')) {
-        sugerencia += `• <strong>Composición:</strong> Inspírate en la torsión suave de <em>Eros y Psique</em> de Canova o la escultura <em>El Beso</em> de Víctor Delfín: enfócate en el encuentro de los rostros y las manos sosteniendo el cuello.<br>• <strong>Técnica a lápiz:</strong> Contrasta sombras profundas entre ambos perfiles con trazos sueltos y envolventes alrededor.`;
+      } else if (texto.includes('beso') || texto.includes('abrazo') || texto.includes('pareja') || texto.includes('victoria') || texto.includes('alas')) {
+        sugerencia += `• <strong>Composición:</strong> Inspírate en la fuerza y movimiento de <em>La Victoria</em> o la escultura <em>El Beso</em> de Víctor Delfín: enfócate en la tensión de las líneas, las alas o el encuentro de los cuerpos.<br>• <strong>Técnica a lápiz:</strong> Contrasta sombras profundas con trazos sueltos y direccionales que acompañen el movimiento.`;
       } else if (texto.includes('flor') || texto.includes('lirio') || texto.includes('botan') || texto.includes('naturaleza')) {
         sugerencia += `• <strong>Composición:</strong> Combina un estudio botánico detallado en primer plano con líneas de construcción geométrica visibles al fondo (estilo cuaderno de estudio renacentista).<br>• <strong>Técnica a lápiz:</strong> Usa un portaminas fino (0.5) para las nervaduras de los pétalos y difumina suavemente la base del tallo.`;
       } else {
