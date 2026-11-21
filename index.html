@@ -48,6 +48,7 @@
       mix-blend-mode: multiply;
       opacity: 0.58;
     }
+    /* Arriba izquierda: La Creación de Adán */
     .art-adam {
       top: 0;
       left: -10px;
@@ -55,37 +56,44 @@
       object-fit: contain;
       transform: rotate(-2deg);
     }
-    .art-eros {
-      top: 12px;
-      right: -25px;
-      width: 390px;
-      object-fit: contain;
-      transform: rotate(4deg);
-    }
-    /* Encuadre centrado en la escultura de los amantes (ocultando el pedestal inferior) */
+    /* Arriba derecha: El Beso (solo la pareja escultórica, sin plataforma) */
     .art-beso {
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 680px;
+      top: 4px;
+      right: -12px;
+      width: 490px;
       height: 225px;
       object-fit: cover;
-      object-position: 50% 12%;
-      opacity: 0.55;
+      object-position: 48% 8%;
+      transform: rotate(2deg);
+      opacity: 0.56;
       filter: grayscale(100%) contrast(135%);
-      -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 60%, transparent 100%);
-      mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 60%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
+      mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
+    }
+    /* Abajo centro: Eros y Psique (encuadrado en los rostros y brazos) */
+    .art-eros {
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 430px;
+      height: 255px;
+      object-fit: cover;
+      object-position: 50% 48%;
+      opacity: 0.56;
+      filter: contrast(125%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 58%, transparent 100%);
+      mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 58%, transparent 100%);
     }
 
     @media (max-width: 1150px) {
       .art-adam { width: 440px; }
-      .art-eros { width: 310px; right: -15px; }
-      .art-beso { width: 520px; height: 185px; }
+      .art-beso { width: 370px; height: 175px; }
+      .art-eros { width: 350px; height: 210px; }
     }
     @media (max-width: 720px) {
       .art-adam { width: 280px; opacity: 0.45; }
-      .art-eros { width: 220px; opacity: 0.45; }
-      .art-beso { width: 360px; height: 145px; opacity: 0.42; }
+      .art-beso { width: 250px; height: 130px; opacity: 0.42; }
+      .art-eros { width: 260px; height: 165px; opacity: 0.45; }
     }
 
     /* TÍTULO PRINCIPAL */
@@ -167,7 +175,7 @@
     /* Pliego abierto liso */
     .sketchbook-spread {
       width: 100%;
-      min-height: 510px;
+      min-height: 495px;
       background-color: var(--paper-cream);
       background-image:
         linear-gradient(
@@ -372,30 +380,38 @@
       cursor: pointer;
     }
 
-    /* BOTÓN FLOTANTE: LA PROPIA FLOR DE LIRIO SIN CÍRCULO NI BORDE */
+    /* BOTÓN REDONDO EN COLOR PAPEL CREMA CON EL LIRIO FUNDIDO EN TINTA */
     .lily-fab {
       position: fixed;
-      bottom: 18px;
-      right: 22px;
-      width: 96px;
-      height: 96px;
-      background: transparent;
-      border: none;
-      box-shadow: none;
+      bottom: 24px;
+      right: 24px;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background-color: var(--paper-cream);
+      background-image: radial-gradient(circle at 35% 35%, #fdfaf3 0%, #e7decb 100%);
+      border: 2px solid var(--gold-mid);
+      box-shadow:
+        0 10px 24px rgba(35, 25, 10, 0.25),
+        inset 0 0 10px rgba(175, 155, 120, 0.35);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 50;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
     }
-    .lily-fab:hover { transform: scale(1.12); }
+    .lily-fab:hover {
+      transform: scale(1.08);
+      box-shadow: 0 14px 28px rgba(35, 25, 10, 0.32);
+    }
     .lily-img {
-      width: 92px;
-      height: 92px;
+      width: 64px;
+      height: 64px;
       object-fit: contain;
       mix-blend-mode: multiply;
-      filter: drop-shadow(0 6px 10px rgba(35, 25, 10, 0.22));
+      filter: contrast(130%) brightness(105%);
       animation: lilyBloom 4s ease-in-out infinite;
     }
     @keyframes lilyBloom {
@@ -404,16 +420,16 @@
     }
     .lily-tooltip {
       position: fixed;
-      bottom: 48px;
-      right: 122px;
-      background: rgba(250, 246, 237, 0.92);
+      bottom: 44px;
+      right: 116px;
+      background: var(--paper-cream);
       color: var(--ink-primary);
-      padding: 5px 14px;
+      padding: 6px 14px;
       border-radius: 20px;
       font-family: 'Caveat', cursive;
-      font-size: 1.25rem;
-      box-shadow: 0 4px 12px rgba(35, 25, 10, 0.16);
-      border: 1px solid #cbbba0;
+      font-size: 1.22rem;
+      box-shadow: 0 4px 12px rgba(35, 25, 10, 0.18);
+      border: 1px solid var(--gold-mid);
       pointer-events: none;
       z-index: 50;
     }
@@ -480,10 +496,10 @@
 </head>
 <body>
 
-  <!-- TUS 3 OBRAS REALES EN EL FONDO -->
+  <!-- TUS 3 OBRAS REALES EN EL FONDO (Intercambiadas para lucir completas) -->
   <img class="bg-artwork art-adam" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/creacion.jpg" alt="La Creación de Adán" onerror="this.style.display='none'" />
-  <img class="bg-artwork art-eros" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/eros.jpg" alt="Eros y Psique" onerror="this.style.display='none'" />
   <img class="bg-artwork art-beso" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/beso.jpg" alt="El Beso de Víctor Delfín" onerror="this.style.display='none'" />
+  <img class="bg-artwork art-eros" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/eros.jpg" alt="Eros y Psique" onerror="this.style.display='none'" />
 
   <!-- TÍTULO -->
   <header class="header-desk">
@@ -532,7 +548,7 @@
     </main>
   </div>
 
-  <!-- Botón flotante: la flor de lirio directa sin marco ni círculo -->
+  <!-- Botón redondo en color papel con el lirio fundido dentro -->
   <div class="lily-tooltip">Añadir trazo o idea</div>
   <button class="lily-fab" onclick="openUploadModal()" title="Añadir nuevo dibujo o referencia">
     <img class="lily-img" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/lirio.jpg" alt="Añadir dibujo" />
