@@ -70,49 +70,46 @@
       -webkit-mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
       mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
     }
-    /* Abajo centro: Eros y Psique (encuadrado en los rostros y brazos) */
+    /* Abajo centro: Eros y Psique (subido un poco, más alto y sin recuadro gris) */
     .art-eros {
-      bottom: -6px;
+      bottom: 18px;
       left: 50%;
       transform: translateX(-50%);
-      width: 430px;
-      height: 255px;
+      width: 450px;
+      height: 315px;
       object-fit: cover;
-      object-position: 50% 48%;
-      opacity: 0.56;
-      filter: contrast(125%);
-      -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 58%, transparent 100%);
-      mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 58%, transparent 100%);
+      object-position: 50% 50%;
+      opacity: 0.62;
+      filter: grayscale(100%) contrast(165%) brightness(118%);
+      -webkit-mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, black 60%, transparent 100%);
+      mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, black 60%, transparent 100%);
     }
 
     @media (max-width: 1150px) {
       .art-adam { width: 440px; }
       .art-beso { width: 370px; height: 175px; }
-      .art-eros { width: 350px; height: 210px; }
+      .art-eros { width: 370px; height: 260px; }
     }
     @media (max-width: 720px) {
       .art-adam { width: 280px; opacity: 0.45; }
       .art-beso { width: 250px; height: 130px; opacity: 0.42; }
-      .art-eros { width: 260px; height: 165px; opacity: 0.45; }
+      .art-eros { width: 280px; height: 205px; opacity: 0.48; }
     }
 
-    /* TÍTULO PRINCIPAL */
+    /* TÍTULO PRINCIPAL SIN RECUADRO */
     .header-desk {
       text-align: center;
       color: var(--ink-primary);
       margin-bottom: 16px;
       position: relative;
       z-index: 6;
-      background: rgba(250, 246, 237, 0.78);
-      padding: 6px 26px;
-      border-radius: 30px;
-      backdrop-filter: blur(2px);
     }
     .header-desk h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.65rem;
+      font-size: 2.75rem;
       letter-spacing: 0.03em;
       font-weight: 700;
+      text-shadow: 0 1px 2px rgba(255, 252, 245, 0.8);
     }
 
     /* Pestañas estilo marcapáginas */
@@ -175,7 +172,7 @@
     /* Pliego abierto liso */
     .sketchbook-spread {
       width: 100%;
-      min-height: 495px;
+      min-height: 470px;
       background-color: var(--paper-cream);
       background-image:
         linear-gradient(
@@ -194,7 +191,7 @@
       box-shadow:
         0 24px 48px rgba(40, 30, 15, 0.28),
         inset 0 0 28px rgba(175, 155, 120, 0.22);
-      padding: 30px 32px;
+      padding: 26px 30px;
       position: relative;
       border: 1px solid #cbbba0;
     }
@@ -203,7 +200,7 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
-      gap: 28px;
+      gap: 24px;
     }
 
     .gold-frame-card {
@@ -257,19 +254,19 @@
       font-style: italic;
     }
 
-    /* SECCIÓN 2: WISHLIST TIPO PINTEREST + ASISTENTE DE INSPIRACIÓN */
+    /* SECCIÓN 2: WISHLIST + ASISTENTE DE INSPIRACIÓN */
     .inspiration-box {
       background: #fffcf5;
       border: 1.5px solid #c9b693;
       border-radius: 10px;
-      padding: 15px 18px;
-      margin-bottom: 24px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
       box-shadow: 2px 3px 0px rgba(180, 160, 120, 0.3);
     }
     .inspiration-box h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
-      margin-bottom: 6px;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
       color: var(--ink-primary);
     }
     .inspiration-controls {
@@ -280,18 +277,18 @@
     .inspiration-controls input {
       flex: 1;
       min-width: 210px;
-      padding: 9px 12px;
+      padding: 8px 12px;
       border: 1px solid #cbb998;
       border-radius: 8px;
       background: var(--paper-cream);
       font-family: 'Lora', serif;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
     .btn-muse {
       background: var(--ink-primary);
       color: var(--paper-cream);
       border: none;
-      padding: 9px 16px;
+      padding: 8px 16px;
       border-radius: 8px;
       font-family: 'Cormorant Garamond', serif;
       font-size: 1rem;
@@ -301,19 +298,19 @@
     }
     .btn-muse:hover { background: var(--accent-terracotta); }
     .inspiration-result {
-      margin-top: 12px;
-      padding: 12px;
+      margin-top: 10px;
+      padding: 10px 12px;
       background: var(--paper-dark);
       border-left: 3px solid var(--gold-mid);
       border-radius: 0 8px 8px 0;
-      font-size: 0.88rem;
-      line-height: 1.5;
+      font-size: 0.86rem;
+      line-height: 1.45;
       display: none;
     }
 
     .pinterest-masonry {
       column-count: 3;
-      column-gap: 18px;
+      column-gap: 14px;
     }
     @media (max-width: 780px) { .pinterest-masonry { column-count: 2; } }
     @media (max-width: 500px) { .pinterest-masonry { column-count: 1; } }
@@ -324,7 +321,7 @@
       border: 1px solid #d4c5a9;
       border-radius: 8px;
       padding: 9px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       box-shadow: 2px 4px 10px rgba(0,0,0,0.08);
       position: relative;
     }
@@ -380,13 +377,13 @@
       cursor: pointer;
     }
 
-    /* BOTÓN REDONDO EN COLOR PAPEL CREMA CON EL LIRIO FUNDIDO EN TINTA */
+    /* BOTÓN REDONDO EN COLOR PAPEL CON LIRIO DIBUJADO A TINTA */
     .lily-fab {
       position: fixed;
       bottom: 24px;
       right: 24px;
-      width: 82px;
-      height: 82px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       background-color: var(--paper-cream);
       background-image: radial-gradient(circle at 35% 35%, #fdfaf3 0%, #e7decb 100%);
@@ -400,18 +397,14 @@
       justify-content: center;
       z-index: 50;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      overflow: hidden;
     }
     .lily-fab:hover {
       transform: scale(1.08);
       box-shadow: 0 14px 28px rgba(35, 25, 10, 0.32);
     }
-    .lily-img {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      mix-blend-mode: multiply;
-      filter: contrast(130%) brightness(105%);
+    .lily-svg {
+      width: 58px;
+      height: 58px;
       animation: lilyBloom 4s ease-in-out infinite;
     }
     @keyframes lilyBloom {
@@ -420,8 +413,8 @@
     }
     .lily-tooltip {
       position: fixed;
-      bottom: 44px;
-      right: 116px;
+      bottom: 43px;
+      right: 114px;
       background: var(--paper-cream);
       color: var(--ink-primary);
       padding: 6px 14px;
@@ -496,12 +489,12 @@
 </head>
 <body>
 
-  <!-- TUS 3 OBRAS REALES EN EL FONDO (Intercambiadas para lucir completas) -->
+  <!-- TUS 3 OBRAS REALES EN EL FONDO -->
   <img class="bg-artwork art-adam" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/creacion.jpg" alt="La Creación de Adán" onerror="this.style.display='none'" />
   <img class="bg-artwork art-beso" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/beso.jpg" alt="El Beso de Víctor Delfín" onerror="this.style.display='none'" />
   <img class="bg-artwork art-eros" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/eros.jpg" alt="Eros y Psique" onerror="this.style.display='none'" />
 
-  <!-- TÍTULO -->
+  <!-- TÍTULO SIN RECUADRO -->
   <header class="header-desk">
     <h1>Sai's sketchbook</h1>
   </header>
@@ -509,7 +502,7 @@
   <!-- Pestañas de la libreta -->
   <nav class="bookmark-tabs">
     <button class="tab-btn active" id="tab-coleccion" onclick="switchTab('coleccion')">Mi Pequeña Colección</button>
-    <button class="tab-btn" id="tab-wishlist" onclick="switchTab('wishlist')">Wishlist & Bocetos por hacer</button>
+    <button class="tab-btn" id="tab-wishlist" onclick="switchTab('wishlist')">Wishlist</button>
   </nav>
 
   <!-- LIBRETA ABIERTA COMPACTA Y LISA -->
@@ -531,7 +524,7 @@
       <section id="view-wishlist" class="hidden">
         <div class="inspiration-box">
           <h3>¿Qué inspiración tienes hoy?</h3>
-          <p style="font-size: 0.85rem; color: var(--ink-secondary); margin-bottom: 10px;">
+          <p style="font-size: 0.83rem; color: var(--ink-secondary); margin-bottom: 8px;">
             Describe lo que te gustaría dibujar aunque no tengas la referencia exacta, y te sugeriré composición, luces y enfoque artístico:
           </p>
           <div class="inspiration-controls">
@@ -548,10 +541,37 @@
     </main>
   </div>
 
-  <!-- Botón redondo en color papel con el lirio fundido dentro -->
+  <!-- Botón redondo en color papel con LIRIO DIBUJADO A TINTA -->
   <div class="lily-tooltip">Añadir trazo o idea</div>
   <button class="lily-fab" onclick="openUploadModal()" title="Añadir nuevo dibujo o referencia">
-    <img class="lily-img" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/lirio.jpg" alt="Añadir dibujo" />
+    <svg class="lily-svg" viewBox="0 0 120 120" fill="none" stroke="#1f1b18" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Pétalos abiertos del lirio -->
+      <path d="M58 62 C44 48, 28 42, 30 28 C34 20, 44 22, 50 28 C54 34, 56 46, 58 62 Z" fill="#faf6ed" stroke-width="1.9" />
+      <path d="M60 62 C60 44, 62 24, 74 16 C82 14, 88 20, 86 28 C82 40, 70 50, 60 62 Z" fill="#faf6ed" stroke-width="1.9" />
+      <path d="M57 63 C42 54, 24 52, 16 62 C14 70, 20 76, 30 74 C42 72, 50 67, 57 63 Z" fill="#faf6ed" stroke-width="1.9" />
+      <path d="M61 63 C76 50, 94 42, 104 52 C108 58, 104 66, 94 66 C82 66, 70 64, 61 63 Z" fill="#faf6ed" stroke-width="1.9" />
+      <path d="M58 64 C46 72, 34 86, 38 100 C42 106, 50 104, 56 94 C60 84, 60 72, 58 64 Z" fill="#faf6ed" stroke-width="1.9" />
+      <path d="M60 64 C64 76, 72 90, 82 94 C88 94, 90 86, 84 78 C78 70, 68 66, 60 64 Z" fill="#faf6ed" stroke-width="1.9" />
+      <!-- Nervaduras y sombreado de grabado -->
+      <path d="M55 56 L38 32 M52 58 L34 42 M62 56 L78 24 M64 58 L82 34 M52 64 L24 64 M66 62 L96 56 M56 70 L44 96 M63 70 L78 88" stroke-width="0.9" />
+      <path d="M32 34 L38 36 M32 38 L38 40 M76 18 L82 22 M74 22 L80 26 M18 64 L24 66 M18 68 L24 70 M40 94 L46 92 M42 98 L48 96 M96 54 L102 58 M94 58 L100 62" stroke-width="0.85" />
+      <!-- Pecas del lirio -->
+      <circle cx="48" cy="48" r="0.9" fill="#1f1b18" stroke="none" />
+      <circle cx="52" cy="44" r="0.9" fill="#1f1b18" stroke="none" />
+      <circle cx="66" cy="46" r="0.9" fill="#1f1b18" stroke="none" />
+      <circle cx="70" cy="50" r="0.9" fill="#1f1b18" stroke="none" />
+      <circle cx="48" cy="60" r="0.9" fill="#1f1b18" stroke="none" />
+      <circle cx="68" cy="60" r="0.9" fill="#1f1b18" stroke="none" />
+      <!-- Estambres y anteras -->
+      <path d="M58 61 C54 48, 50 38, 48 30" stroke-width="1.2" />
+      <path d="M59 61 C58 46, 58 34, 57 26" stroke-width="1.2" />
+      <path d="M60 61 C63 46, 66 36, 68 28" stroke-width="1.2" />
+      <path d="M60 61 C66 50, 72 42, 76 36" stroke-width="1.2" />
+      <ellipse cx="48" cy="29" rx="1.8" ry="3.4" transform="rotate(-18 48 29)" fill="#1f1b18" />
+      <ellipse cx="57" cy="25" rx="1.8" ry="3.4" transform="rotate(-5 57 25)" fill="#1f1b18" />
+      <ellipse cx="68" cy="27" rx="1.8" ry="3.4" transform="rotate(14 68 27)" fill="#1f1b18" />
+      <ellipse cx="76" cy="35" rx="1.8" ry="3.4" transform="rotate(28 76 35)" fill="#1f1b18" />
+    </svg>
   </button>
 
   <!-- MODAL 1: SUBIR OBRA -->
@@ -671,7 +691,7 @@
       }
 
       if (wishlist.length === 0) {
-        wishGrid.innerHTML = '<p style="font-style:italic; color: var(--ink-secondary);">Aún no hay referencias en tu wishlist. Guarda ideas para cuando llegue tu cuaderno.</p>';
+        wishGrid.innerHTML = '<p style="font-style:italic; color: var(--ink-secondary);">Aún no hay referencias en tu wishlist.</p>';
       } else {
         wishlist.forEach(item => {
           const pin = document.createElement('div');
