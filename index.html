@@ -70,30 +70,30 @@
       -webkit-mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
       mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
     }
-    /* Abajo centro: La Victoria integrada en el tono del papel y un poco más grande */
-    .art-victoria {
-      bottom: 6px;
+    /* Abajo centro: Las Cariátides integradas en el tono cálido del papel */
+    .art-cariatides {
+      bottom: 8px;
       left: 50%;
       transform: translateX(-50%);
-      width: 520px;
-      height: 340px;
+      width: 500px;
+      height: 310px;
       object-fit: contain;
       object-position: center bottom;
-      opacity: 0.62;
-      filter: grayscale(100%) contrast(185%) brightness(112%);
-      -webkit-mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, black 68%, transparent 100%);
-      mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, black 68%, transparent 100%);
+      opacity: 0.6;
+      filter: sepia(18%) grayscale(80%) contrast(145%) brightness(108%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 65%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 65%, transparent 100%);
     }
 
     @media (max-width: 1150px) {
       .art-adam { width: 440px; }
       .art-beso { width: 370px; height: 175px; }
-      .art-victoria { width: 420px; height: 280px; }
+      .art-cariatides { width: 410px; height: 260px; }
     }
     @media (max-width: 720px) {
       .art-adam { width: 280px; opacity: 0.45; }
       .art-beso { width: 250px; height: 130px; opacity: 0.42; }
-      .art-victoria { width: 320px; height: 220px; opacity: 0.52; }
+      .art-cariatides { width: 310px; height: 205px; opacity: 0.5; }
     }
 
     /* TÍTULO PRINCIPAL CON RECUADRO REDONDEADO TRANSPARENTOSO */
@@ -257,7 +257,7 @@
       font-style: italic;
     }
 
-    /* SECCIÓN 2: WISHLIST + ASISTENTE DE INSPIRACIÓN */
+    /* SECCIÓN 2: WISHLIST TIPO PINTEREST + ASISTENTE DE INSPIRACIÓN */
     .inspiration-box {
       background: #fffcf5;
       border: 1.5px solid #c9b693;
@@ -503,7 +503,7 @@
   <!-- TUS 3 OBRAS REALES EN EL FONDO -->
   <img class="bg-artwork art-adam" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/creacion.jpg" alt="La Creación de Adán" onerror="this.style.display='none'" />
   <img class="bg-artwork art-beso" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/beso.jpg" alt="El Beso de Víctor Delfín" onerror="this.style.display='none'" />
-  <img class="bg-artwork art-victoria" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/victoria.jpg" alt="Victoria" onerror="this.style.display='none'" />
+  <img class="bg-artwork art-cariatides" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/Cariatides.webp" alt="Las Cariátides" onerror="this.style.display='none'" />
 
   <!-- TÍTULO CON RECUADRO REDONDEADO TRANSPARENTOSO -->
   <header class="header-desk">
@@ -607,7 +607,7 @@
         </div>
         <div class="form-group">
           <label>Título</label>
-          <input type="text" id="obra-titulo" placeholder="Ej: Estudio de manos / Victoria" required />
+          <input type="text" id="obra-titulo" placeholder="Ej: Estudio de manos / Cariátides" required />
         </div>
         <div class="form-group">
           <label>Técnica</label>
@@ -813,8 +813,8 @@
 
       if (texto.includes('mano') || texto.includes('adan') || texto.includes('adán') || texto.includes('tocar')) {
         sugerencia += `• <strong>Composición:</strong> Usa una diagonal ascendente inspirada en <em>La Creación de Adán</em>, dejando un espacio vacío de tensión justo antes de que las yemas se rocen.<br>• <strong>Técnica a lápiz:</strong> Trabaja los nudillos y tendones con grafito 2B/4B y deja el borde superior iluminado con goma moldeable para dar volumen escultórico.`;
-      } else if (texto.includes('beso') || texto.includes('abrazo') || texto.includes('pareja') || texto.includes('victoria') || texto.includes('alas')) {
-        sugerencia += `• <strong>Composición:</strong> Inspírate en la fuerza y movimiento de <em>La Victoria</em> o la escultura <em>El Beso</em> de Víctor Delfín: enfócate en la tensión de las líneas, las alas o el encuentro de los cuerpos.<br>• <strong>Técnica a lápiz:</strong> Contrasta sombras profundas con trazos sueltos y direccionales que acompañen el movimiento.`;
+      } else if (texto.includes('beso') || texto.includes('abrazo') || texto.includes('pareja') || texto.includes('cariatide') || texto.includes('columna')) {
+        sugerencia += `• <strong>Composición:</strong> Inspírate en la verticalidad serena de las <em>Cariátides</em> o el abrazo de <em>El Beso</em> de Víctor Delfín: presta atención a los pliegues de la túnica y el equilibrio del peso.<br>• <strong>Técnica a lápiz:</strong> Usa líneas suaves y continuas para las caídas de tela y sombreado gradual para el volumen de la piedra.`;
       } else if (texto.includes('flor') || texto.includes('lirio') || texto.includes('botan') || texto.includes('naturaleza')) {
         sugerencia += `• <strong>Composición:</strong> Combina un estudio botánico detallado en primer plano con líneas de construcción geométrica visibles al fondo (estilo cuaderno de estudio renacentista).<br>• <strong>Técnica a lápiz:</strong> Usa un portaminas fino (0.5) para las nervaduras de los pétalos y difumina suavemente la base del tallo.`;
       } else {
