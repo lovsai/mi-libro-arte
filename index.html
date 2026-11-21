@@ -70,46 +70,49 @@
       -webkit-mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
       mask-image: radial-gradient(ellipse 82% 82% at 50% 45%, black 55%, transparent 100%);
     }
-    /* Abajo centro: La Victoria integrada en el tono cálido del papel */
+    /* Abajo centro: La Victoria integrada en el tono del papel y un poco más grande */
     .art-victoria {
-      bottom: 12px;
+      bottom: 6px;
       left: 50%;
       transform: translateX(-50%);
-      width: 450px;
-      height: 300px;
+      width: 520px;
+      height: 340px;
       object-fit: contain;
       object-position: center bottom;
-      opacity: 0.56;
-      filter: sepia(22%) grayscale(75%) contrast(130%) brightness(106%);
-      -webkit-mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, black 62%, transparent 100%);
-      mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, black 62%, transparent 100%);
+      opacity: 0.62;
+      filter: grayscale(100%) contrast(185%) brightness(112%);
+      -webkit-mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, black 68%, transparent 100%);
+      mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, black 68%, transparent 100%);
     }
 
     @media (max-width: 1150px) {
       .art-adam { width: 440px; }
       .art-beso { width: 370px; height: 175px; }
-      .art-victoria { width: 370px; height: 245px; }
+      .art-victoria { width: 420px; height: 280px; }
     }
     @media (max-width: 720px) {
       .art-adam { width: 280px; opacity: 0.45; }
       .art-beso { width: 250px; height: 130px; opacity: 0.42; }
-      .art-victoria { width: 280px; height: 195px; opacity: 0.48; }
+      .art-victoria { width: 320px; height: 220px; opacity: 0.52; }
     }
 
-    /* TÍTULO PRINCIPAL SIN RECUADRO */
+    /* TÍTULO PRINCIPAL CON RECUADRO REDONDEADO TRANSPARENTOSO */
     .header-desk {
       text-align: center;
       color: var(--ink-primary);
       margin-bottom: 16px;
       position: relative;
       z-index: 6;
+      background: rgba(250, 246, 237, 0.78);
+      padding: 6px 26px;
+      border-radius: 30px;
+      backdrop-filter: blur(2px);
     }
     .header-desk h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.75rem;
+      font-size: 2.65rem;
       letter-spacing: 0.03em;
       font-weight: 700;
-      text-shadow: 0 1px 2px rgba(255, 252, 245, 0.8);
     }
 
     /* Pestañas estilo marcapáginas */
@@ -254,7 +257,7 @@
       font-style: italic;
     }
 
-    /* SECCIÓN 2: WISHLIST TIPO PINTEREST + ASISTENTE DE INSPIRACIÓN */
+    /* SECCIÓN 2: WISHLIST + ASISTENTE DE INSPIRACIÓN */
     .inspiration-box {
       background: #fffcf5;
       border: 1.5px solid #c9b693;
@@ -306,6 +309,14 @@
       font-size: 0.86rem;
       line-height: 1.45;
       display: none;
+    }
+
+    .wishlist-empty {
+      font-style: italic;
+      color: var(--ink-secondary);
+      text-align: left;
+      letter-spacing: normal;
+      word-spacing: normal;
     }
 
     .pinterest-masonry {
@@ -494,7 +505,7 @@
   <img class="bg-artwork art-beso" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/beso.jpg" alt="El Beso de Víctor Delfín" onerror="this.style.display='none'" />
   <img class="bg-artwork art-victoria" src="https://hllipxzifcwsvkxrdaou.supabase.co/storage/v1/object/public/dibujos/victoria.jpg" alt="Victoria" onerror="this.style.display='none'" />
 
-  <!-- TÍTULO SIN RECUADRO -->
+  <!-- TÍTULO CON RECUADRO REDONDEADO TRANSPARENTOSO -->
   <header class="header-desk">
     <h1>Sai's sketchbook</h1>
   </header>
@@ -534,6 +545,9 @@
           <div class="inspiration-result" id="idea-output"></div>
         </div>
 
+        <div id="wishlist-empty-msg" class="wishlist-empty hidden">
+          Aún no hay referencias en tu wishlist.
+        </div>
         <div class="pinterest-masonry" id="wishlist-grid">
           <p style="color: var(--ink-secondary); font-style: italic;">Cargando tu muro de referencias...</p>
         </div>
@@ -664,6 +678,7 @@
 
       const colGrid = document.getElementById('coleccion-grid');
       const wishGrid = document.getElementById('wishlist-grid');
+      const wishEmpty = document.getElementById('wishlist-empty-msg');
       colGrid.innerHTML = '';
       wishGrid.innerHTML = '';
 
@@ -691,8 +706,11 @@
       }
 
       if (wishlist.length === 0) {
-        wishGrid.innerHTML = '<p style="font-style:italic; color: var(--ink-secondary);">Aún no hay referencias en tu wishlist.</p>';
+        wishEmpty.classList.remove('hidden');
+        wishGrid.classList.add('hidden');
       } else {
+        wishEmpty.classList.add('hidden');
+        wishGrid.classList.remove('hidden');
         wishlist.forEach(item => {
           const pin = document.createElement('div');
           pin.className = 'pin-card';
