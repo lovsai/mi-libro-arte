@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Libreta & Mini Museo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg-desk: #272c3a;
+      --paper-cream: #f8f4ea;
+      --paper-dark: #efe8d8;
+      --grid-line: rgba(130, 120, 100, 0.14);
+      --ink-primary: #2b2623;
+      --ink-secondary: #5c534b;
+      --gold-light: #e6c677;
+      --gold-mid: #c59b3c;
+      --gold-dark: #7d5c18;
+      --accent-terracotta: #a85642;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-desk);
+      background-image: radial-gradient(circle at 50% 20%, #343b4d 0%, #1c202b 100%);
+      color: var(--ink-primary);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      padding: 24px 16px 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-desk {
+      text-align: center;
+      color: #f4efe6;
+      margin-bottom: 20px;
+    }
+    .header-desk h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.3rem;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+    }
+    .header-desk p {
+      font-family: 'Caveat', cursive;
+      font-size: 1.35rem;
+      color: #d6cbb8;
+      margin-top: 2px;
+    }
+
+    .bookmark-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: -2px;
+      z-index: 5;
+    }
+    .tab-btn {
+      background: #dfd5c0;
+      border: 1px solid #bba988;
+      border-bottom: none;
+      padding: 10px 24px;
+      border-radius: 12px 12px 0 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+    }
+    .tab-btn.active {
+      background: var(--paper-cream);
+      color: var(--ink-primary);
+      transform: translateY(-3px);
+      border-top: 3px solid var(--gold-mid);
+    }
+
+    .sketchbook-spread {
+      width: 100%;
+      max-width: 1180px;
+      min-height: 75vh;
+      background-color: var(--paper-cream);
+      background-image:
+        linear-gradient(to right, rgba(0,0,0,0.06) 0%, transparent 3%, transparent 48.5%, rgba(0,0,0,0.12) 50%, transparent 51.5%, transparent 97%, rgba(0,0,0,0.06) 100%),
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 100% 100%, 24px 24px, 24px 24px;
+      border-radius: 16px;
+      box-shadow:
+        0 25px 50px rgba(0,0,0,0.45),
+        inset 0 0 40px rgba(180, 160, 120, 0.25);
+      padding: 32px 36px;
+      position: relative;
+      border: 1px solid #d5c7ad;
+    }
+
+    .notebook-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid rgba(92, 83, 75, 0.25);
+      padding-bottom: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .date-stamp {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .date-day {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1;
+      border-right: 1.5px solid var(--ink-secondary);
+      padding-right: 12px;
+    }
+    .date-details {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-secondary);
+    }
+    .art-quote {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: var(--ink-secondary);
+      max-width: 480px;
+      text-align: right;
+    }
+
+    .muses-strip {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+      padding: 12px 16px;
+      background: rgba(239, 232, 216, 0.65);
+      border: 1px dashed #b9a787;
+      border-radius: 8px;
+      align-items: center;
+    }
+    .muses-strip span.label {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: var(--accent-terracotta);
+      font-weight: 700;
+    }
+    .muse-pill {
+      font-size: 0.82rem;
+      background: #fffdf8;
+      border: 1px solid #d1c1a5;
+      padding: 4px 10px;
+      border-radius: 20px;
+      color: var(--ink-primary);
+      font-style: italic;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 32px;
+    }
+
+    .gold-frame-card {
+      background: #fffdf9;
+      padding: 14px;
+      border: 10px solid transparent;
+      border-image: linear-gradient(135deg, var(--gold-dark), var(--gold-light), var(--gold-mid), var(--gold-dark)) 1;
+      box-shadow:
+        0 12px 24px rgba(35, 25, 10, 0.22),
+        inset 0 0 12px rgba(125, 92, 24, 0.35);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .gold-frame-card:hover {
+      transform: translateY(-6px) rotate(-0.6deg);
+      box-shadow: 0 18px 32px rgba(35, 25, 10, 0.3);
+    }
+    .gold-frame-inner {
+      border: 2px solid #e5dcc8;
+      padding: 6px;
+      background: #f6f1e3;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gold-frame-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .museum-plaque {
+      margin-top: 12px;
+      text-align: center;
+      border-top: 1px solid #e2d6be;
+      padding-top: 8px;
+    }
+    .museum-plaque h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .museum-plaque p {
+      font-size: 0.78rem;
+      color: var(--ink-secondary);
+      font-style: italic;
+    }
+
+    .inspiration-box {
+      background: #fffcf5;
+      border: 1.5px solid #c9b693;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 28px;
+      box-shadow: 3px 4px 0px rgba(180, 160, 120, 0.35);
+    }
+    .inspiration-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+      color: var(--ink-primary);
+    }
+    .inspiration-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .inspiration-controls input {
+      flex: 1;
+      min-width: 240px;
+      padding: 10px 14px;
+      border: 1px solid #cbb998;
+      border-radius: 8px;
+      background: var(--paper-cream);
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+    }
+    .btn-muse {
+      background: var(--ink-primary);
+      color: var(--paper-cream);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-muse:hover { background: var(--accent-terracotta); }
+    .inspiration-result {
+      margin-top: 14px;
+      padding: 14px;
+      background: var(--paper-dark);
+      border-left: 3px solid var(--gold-mid);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      display: none;
+    }
+
+    .pinterest-masonry {
+      column-count: 3;
+      column-gap: 22px;
+    }
+    @media (max-width: 900px) { .pinterest-masonry { column-count: 2; } }
+    @media (max-width: 580px) { .pinterest-masonry { column-count: 1; } }
+
+    .pin-card {
+      break-inside: avoid;
+      background: #fffdf9;
+      border: 1px solid #d4c5a9;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 22px;
+      box-shadow: 2px 4px 12px rgba(0,0,0,0.08);
+      position: relative;
+    }
+    .pin-card::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 64px;
+      height: 16px;
+      background: rgba(214, 189, 138, 0.55);
+      border-left: 1px dashed rgba(0,0,0,0.1);
+      border-right: 1px dashed rgba(0,0,0,0.1);
+    }
+    .pin-card img {
+      width: 100%;
+      border-radius: 4px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .pin-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+    .pin-card p {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: var(--ink-secondary);
+      margin-bottom: 10px;
+    }
+    .pin-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .btn-hecho {
+      background: #4e6e58;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      font-family: 'Lora', serif;
+    }
+    .btn-delete {
+      background: transparent;
+      color: #9e473b;
+      border: 1px solid #d8b4ae;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .lily-fab {
+      position: fixed;
+      bottom: 26px;
+      right: 26px;
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: #fffaf0;
+      border: 2px solid var(--gold-mid);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      transition: transform 0.3s ease;
+    }
+    .lily-fab:hover {
+      transform: scale(1.08);
+    }
+    .lily-svg {
+      width: 50px;
+      height: 50px;
+      animation: lilySway 3.8s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+    @keyframes lilySway {
+      0%, 100% { transform: rotate(-4deg) scale(1); }
+      50% { transform: rotate(5deg) scale(1.05); }
+    }
+    .lily-tooltip {
+      position: fixed;
+      bottom: 38px;
+      right: 110px;
+      background: var(--paper-cream);
+      color: var(--ink-primary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      border: 1px solid var(--gold-mid);
+      pointer-events: none;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 22, 30, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: var(--paper-cream);
+      border: 2px solid var(--gold-mid);
+      border-radius: 14px;
+      max-width: 520px;
+      width: 100%;
+      padding: 26px;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--ink-secondary);
+    }
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #c6b596;
+      border-radius: 8px;
+      background: #fffdf8;
+      font-family: 'Lora', serif;
+    }
+
+    .detail-img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      border: 6px solid var(--gold-mid);
+      background: #efe8d8;
+      margin-bottom: 14px;
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <header class="header-desk">
+    <h1>Cuaderno de Bocetos & Mini Museo</h1>
+    <p>~ archivo íntimo de trazos, mármol y referencias ~</p>
+  </header>
+
+  <nav class="bookmark-tabs">
+    <button class="tab-btn active" id="tab-coleccion" onclick="switchTab('coleccion')">Mi Pequeña Colección</button>
+    <button class="tab-btn" id="tab-wishlist" onclick="switchTab('wishlist')">Wishlist & Bocetos por hacer</button>
+  </nav>
+
+  <main class="sketchbook-spread">
+    <div class="notebook-meta">
+      <div class="date-stamp">
+        <div class="date-day" id="today-day">21</div>
+        <div class="date-details">
+          <div id="today-month">NOVIEMBRE</div>
+          <div>ARCHIVO PERSONAL</div>
+        </div>
+      </div>
+      <div class="art-quote">
+        "La escultura es el arte de la inteligencia; el dibujo, el pulso directo del alma."
+      </div>
+    </div>
+
+    <div class="muses-strip">
+      <span class="label">Musas & Referencias eternas:</span>
+      <span class="muse-pill">La Creación de Adán (Miguel Ángel)</span>
+      <span class="muse-pill">Eros y Psique (Antonio Canova)</span>
+      <span class="muse-pill">El Beso (Víctor Delfín)</span>
+    </div>
+
+    <section id="view-coleccion">
+      <div class="gallery-grid" id="coleccion-grid">
+        <p style="color: var(--ink-secondary); font-style: italic;">Cargando tus obras enmarcadas...</p>
+      </div>
+    </section>
+
+    <section id="view-wishlist" class="hidden">
+      <div class="inspiration-box">
+        <h3>¿Qué inspiración tienes hoy?</h3>
+        <p style="font-size: 0.88rem; color: var(--ink-secondary); margin-bottom: 10px;">
+          Describe lo que te gustaría dibujar aunque no tengas la referencia exacta, y te sugeriré composición, luces y enfoque artístico:
+        </p>
+        <div class="inspiration-controls">
+          <input type="text" id="idea-input" placeholder="Ej: Unas manos acercándose como en la Creación de Adán, pero con lirios..." />
+          <button class="btn-muse" onclick="generarIdea()">Idear boceto</button>
+        </div>
+        <div class="inspiration-result" id="idea-output"></div>
+      </div>
+
+      <div class="pinterest-masonry" id="wishlist-grid">
+        <p style="color: var(--ink-secondary); font-style: italic;">Cargando tu muro de referencias...</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="lily-tooltip">Añadir trazo o idea</div>
+  <button class="lily-fab" onclick="openUploadModal()" title="Añadir nuevo dibujo o referencia">
+    <svg class="lily-svg" viewBox="0 0 100 100" fill="none" stroke="#2b2623" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M50 92 C50 72, 48 60, 50 48" stroke="#4e6e58" stroke-width="2.5"/>
+      <path d="M50 76 C36 72, 28 62, 34 54 C42 60, 47 68, 50 76 Z" fill="#e8efe5" stroke="#4e6e58"/>
+      <path d="M50 68 C64 63, 72 53, 66 46 C58 52, 53 60, 50 68 Z" fill="#e8efe5" stroke="#4e6e58"/>
+      <path d="M50 48 C34 42, 22 26, 34 16 C43 24, 48 36, 50 48 Z" fill="#fffdf8"/>
+      <path d="M50 48 C66 42, 78 26, 66 16 C57 24, 52 36, 50 48 Z" fill="#fffdf8"/>
+      <path d="M50 48 C42 30, 44 12, 50 8 C56 12, 58 30, 50 48 Z" fill="#fdf6e7"/>
+      <path d="M50 48 C30 50, 18 42, 22 32 C32 34, 42 40, 50 48 Z" fill="#f8eed8"/>
+      <path d="M50 48 C70 50, 82 42, 78 32 C68 34, 58 40, 50 48 Z" fill="#f8eed8"/>
+      <path d="M50 46 L44 26 M50 46 L50 22 M50 46 L56 26" stroke="#c59b3c" stroke-width="1.5"/>
+      <circle cx="44" cy="25" r="1.8" fill="#c59b3c" stroke="none"/>
+      <circle cx="50" cy="21" r="1.8" fill="#c59b3c" stroke="none"/>
+      <circle cx="56" cy="25" r="1.8" fill="#c59b3c" stroke="none"/>
+    </svg>
+  </button>
+
+  <div class="modal-backdrop" id="upload-modal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('upload-modal')">&times;</button>
+      <h2 style="font-family: 'Cormorant Garamond', serif; margin-bottom: 14px;">Guardar en mi Libreta</h2>
+      <form id="upload-form" onsubmit="handleUpload(event)">
+        <div class="form-group">
+          <label>¿Dónde quieres guardarlo?</label>
+          <select id="obra-tipo">
+            <option value="coleccion">Mi Pequeña Colección (Obra terminada con marco dorado)</option>
+            <option value="wishlist">Wishlist (Referencia / Idea por dibujar)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Imagen del dibujo o referencia</label>
+          <input type="file" id="obra-file" accept="image/*" required />
+        </div>
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" id="obra-titulo" placeholder="Ej: Estudio de manos / Eros y Psique" required />
+        </div>
+        <div class="form-group">
+          <label>Técnica</label>
+          <input type="text" id="obra-tecnica" value="Lápiz" />
+        </div>
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="text" id="obra-fecha" placeholder="Ej: Noviembre 2026" />
+        </div>
+        <div class="form-group">
+          <label>¿Qué te inspiró o qué detalles quieres recordar?</label>
+          <textarea id="obra-nota" rows="3" placeholder="Escribe aquí tu nota artística..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Tu PIN secreto (para confirmar que eres tú)</label>
+          <input type="password" id="obra-pin" placeholder="Introduce tu PIN" required />
+        </div>
+        <button type="submit" class="btn-muse" style="width: 100%;" id="submit-btn">Guardar en la base de datos</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="detail-modal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('detail-modal')">&times;</button>
+      <img id="det-img" class="detail-img" src="" alt="Obra" />
+      <h2 id="det-titulo" style="font-family: 'Cormorant Garamond', serif; font-size: 1.7rem;"></h2>
+      <p style="font-size: 0.9rem; color: var(--accent-terracotta); margin: 4px 0 12px;">
+        <strong id="det-tecnica"></strong> · <span id="det-fecha"></span>
+      </p>
+      <p id="det-nota" style="font-style: italic; line-height: 1.6; background: var(--paper-dark); padding: 12px; border-radius: 8px;"></p>
+      <div style="margin-top: 16px; text-align: right;">
+        <button class="btn-delete" id="det-delete-btn">Eliminar obra</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://hllipxzifcwsvkxrdaou.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhsbGlweHppZmN3c3ZreHJkYW91Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUyNzk1MTQsImV4cCI6MjExMDg1NTUxNH0.B4XOJn6--thbdtiuOVzHLrSkKlAfEoOEbVMH9goIzIw';
+    const MI_PIN_SECRETO = '1201';
+
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const hoy = new Date();
+    document.getElementById('today-day').textContent = hoy.getDate();
+    document.getElementById('today-month').textContent = hoy.toLocaleString('es-ES', { month: 'long' }).toUpperCase();
+
+    function switchTab(tab) {
+      document.getElementById('tab-coleccion').classList.toggle('active', tab === 'coleccion');
+      document.getElementById('tab-wishlist').classList.toggle('active', tab === 'wishlist');
+      document.getElementById('view-coleccion').classList.toggle('hidden', tab !== 'coleccion');
+      document.getElementById('view-wishlist').classList.toggle('hidden', tab !== 'wishlist');
+    }
+
+    function openUploadModal() {
+      document.getElementById('upload-modal').classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    async function cargarObras() {
+      const { data, error } = await db.from('obras').select('*').order('created_at', { ascending: false });
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      const colGrid = document.getElementById('coleccion-grid');
+      const wishGrid = document.getElementById('wishlist-grid');
+      colGrid.innerHTML = '';
+      wishGrid.innerHTML = '';
+
+      const coleccion = data.filter(item => item.tipo === 'coleccion');
+      const wishlist = data.filter(item => item.tipo === 'wishlist');
+
+      if (coleccion.length === 0) {
+        colGrid.innerHTML = '<p style="font-style:italic; color: var(--ink-secondary);">Tu galería está esperando tu primer dibujo. Pulsa el lirio para añadir uno.</p>';
+      } else {
+        coleccion.forEach(obra => {
+          const card = document.createElement('div');
+          card.className = 'gold-frame-card';
+          card.innerHTML = `
+            <div class="gold-frame-inner">
+              <img src="${obra.imagen_url}" alt="${obra.titulo}" loading="lazy" />
+            </div>
+            <div class="museum-plaque">
+              <h3>${obra.titulo}</h3>
+              <p>${obra.tecnica || 'Lápiz'} · ${obra.fecha || ''}</p>
+            </div>
+          `;
+          card.onclick = () => verDetalle(obra);
+          colGrid.appendChild(card);
+        });
+      }
+
+      if (wishlist.length === 0) {
+        wishGrid.innerHTML = '<p style="font-style:italic; color: var(--ink-secondary);">Aún no hay referencias en tu wishlist. Guarda ideas para cuando llegue tu cuaderno.</p>';
+      } else {
+        wishlist.forEach(item => {
+          const pin = document.createElement('div');
+          pin.className = 'pin-card';
+          pin.innerHTML = `
+            <img src="${item.imagen_url}" alt="${item.titulo}" loading="lazy" />
+            <h4>${item.titulo}</h4>
+            <p>${item.nota || 'Idea para el cuaderno'}</p>
+            <div class="pin-actions">
+              <button class="btn-hecho" onclick="marcarHecho('${item.id}')">✓ ¡Hecho!</button>
+              <button class="btn-delete" onclick="borrarObra('${item.id}')">Borrar</button>
+            </div>
+          `;
+          wishGrid.appendChild(pin);
+        });
+      }
+    }
+
+    async function handleUpload(e) {
+      e.preventDefault();
+      const pin = document.getElementById('obra-pin').value;
+      if (pin !== MI_PIN_SECRETO) {
+        alert('PIN incorrecto. Solo la dueña de la libreta puede subir obras.');
+        return;
+      }
+
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Guardando trazo...';
+
+      try {
+        const file = document.getElementById('obra-file').files[0];
+        const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+
+        const { error: uploadError } = await db.storage.from('dibujos').upload(fileName, file);
+        if (uploadError) throw uploadError;
+
+        const { data: urlData } = db.storage.from('dibujos').getPublicUrl(fileName);
+
+        const nuevaObra = {
+          tipo: document.getElementById('obra-tipo').value,
+          titulo: document.getElementById('obra-titulo').value,
+          tecnica: document.getElementById('obra-tecnica').value || 'Lápiz',
+          fecha: document.getElementById('obra-fecha').value,
+          nota: document.getElementById('obra-nota').value,
+          imagen_url: urlData.publicUrl
+        };
+
+        const { error: insertError } = await db.from('obras').insert([nuevaObra]);
+        if (insertError) throw insertError;
+
+        document.getElementById('upload-form').reset();
+        document.getElementById('obra-tecnica').value = 'Lápiz';
+        closeModal('upload-modal');
+        cargarObras();
+      } catch (err) {
+        alert('Error al subir: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Guardar en la base de datos';
+      }
+    }
+
+    function verDetalle(obra) {
+      document.getElementById('det-img').src = obra.imagen_url;
+      document.getElementById('det-titulo').textContent = obra.titulo;
+      document.getElementById('det-tecnica').textContent = obra.tecnica || 'Lápiz';
+      document.getElementById('det-fecha').textContent = obra.fecha || 'Sin fecha';
+      document.getElementById('det-nota').textContent = obra.nota || 'Sin notas adicionales.';
+      document.getElementById('det-delete-btn').onclick = () => borrarObra(obra.id, true);
+      document.getElementById('detail-modal').classList.add('open');
+    }
+
+    async function marcarHecho(id) {
+      const pin = prompt('Introduce tu PIN para mover este dibujo a Mi Pequeña Colección:');
+      if (pin !== MI_PIN_SECRETO) {
+        if (pin !== null) alert('PIN incorrecto.');
+        return;
+      }
+      await db.from('obras').update({ tipo: 'coleccion' }).eq('id', id);
+      cargarObras();
+    }
+
+    async function borrarObra(id, fromModal = false) {
+      const pin = prompt('Introduce tu PIN para eliminar este elemento:');
+      if (pin !== MI_PIN_SECRETO) {
+        if (pin !== null) alert('PIN incorrecto.');
+        return;
+      }
+      await db.from('obras').delete().eq('id', id);
+      if (fromModal) closeModal('detail-modal');
+      cargarObras();
+    }
+
+    function generarIdea() {
+      const texto = document.getElementById('idea-input').value.trim().toLowerCase();
+      const out = document.getElementById('idea-output');
+      if (!texto) return;
+
+      let sugerencia = `<strong>Propuesta para tu libreta sobre "${document.getElementById('idea-input').value}":</strong><br>`;
+
+      if (texto.includes('mano') || texto.includes('adan') || texto.includes('adán') || texto.includes('tocar')) {
+        sugerencia += `• <strong>Composición:</strong> Usa una diagonal ascendente inspirada en <em>La Creación de Adán</em>, dejando un espacio vacío de tensión justo antes de que las yemas se rocen.<br>• <strong>Técnica a lápiz:</strong> Trabaja los nudillos y tendones con grafito 2B/4B y deja el borde superior iluminado con goma moldeable para dar volumen escultórico.`;
+      } else if (texto.includes('beso') || texto.includes('abrazo') || texto.includes('pareja') || texto.includes('eros') || texto.includes('psique')) {
+        sugerencia += `• <strong>Composición:</strong> Inspírate en la torsión suave de <em>Eros y Psique</em> de Canova o la fuerza expresiva de <em>El Beso</em> de Víctor Delfín: enfócate en el encuentro de los rostros y las manos sosteniendo el cuello.<br>• <strong>Técnica a lápiz:</strong> Contrasta sombras profundas entre ambos perfiles con trazos sueltos y envolventes alrededor.`;
+      } else if (texto.includes('flor') || texto.includes('lirio') || texto.includes('botan') || texto.includes('naturaleza')) {
+        sugerencia += `• <strong>Composición:</strong> Combina un estudio botánico detallado en primer plano con líneas de construcción geométrica visibles al fondo (estilo cuaderno de estudio renacentista).<br>• <strong>Técnica a lápiz:</strong> Usa un portaminas fino (0.5) para las nervaduras de los pétalos y difumina suavemente la base del tallo.`;
+      } else {
+        sugerencia += `• <strong>Composición clásica:</strong> Divide la página de tu libreta en un boceto principal en el centro y dos pequeños estudios de detalle (un ojo, un pliegue de tela o una mano) en las esquinas.<br>• <strong>Luz y atmósfera:</strong> Imagina una luz lateral tipo escultura de mármol (claroscuro marcado) usando lápiz HB para el encaje inicial y 4B para las sombras proyectadas.`;
+      }
+
+      out.innerHTML = sugerencia;
+      out.style.display = 'block';
+    }
+
+    cargarObras();
+  </script>
+</body>
+</html>
